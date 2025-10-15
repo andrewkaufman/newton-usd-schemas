@@ -1,0 +1,16 @@
+{
+    "Plugins": [
+      {
+        "Info": {
+          "Types": {
+          }
+        },
+        "LibraryPath": "",
+        "Name": "newton",
+        "ResourcePath": "",
+        "Root": ".",
+        "Type": "library"
+      }
+    ]
+  }
+  
