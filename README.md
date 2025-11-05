@@ -1,5 +1,11 @@
 # newton-usd-schemas
 
+:warning: ***This project is in pre-alpha development.*** :warning:
+
+:warning: ***It is not used by the Newton runtime.*** :warning:
+
+:warning: ***Do not use these schemas yet.*** :warning:
+
 # Overview
 
 Newton USD schemas provide extensions to OpenUSD's [UsdPhysics specification](https://openusd.org/release/api/usd_physics_page_front.html), allowing USD layers to fully specify the [Newton](https://newton-physics.github.io/newton/guide/overview.html) runtime data model.
