@@ -42,6 +42,34 @@ class TestNewtonArticulationRootAPI(unittest.TestCase):
         self.assertTrue(attr.HasAuthoredValue())
         self.assertEqual(attr.Get(), False)
 
+    def test_joint_model_default(self):
+        self.prim.ApplyAPI("NewtonArticulationRootAPI")
+        attr = self.prim.GetAttribute("newton:jointModel")
+        self.assertIsNotNone(attr)
+        self.assertFalse(attr.HasAuthoredValue())
+        self.assertEqual(attr.Get(), "maximal")
+
+        allowed = attr.GetMetadata("allowedTokens")
+        self.assertIn("maximal", allowed)
+        self.assertIn("reduced", allowed)
+        self.assertEqual(len(allowed), 2)
+
+    def test_joint_model_reduced(self):
+        self.prim.ApplyAPI("NewtonArticulationRootAPI")
+        attr = self.prim.GetAttribute("newton:jointModel")
+        success = attr.Set("reduced")
+        self.assertTrue(success)
+        self.assertTrue(attr.HasAuthoredValue())
+        self.assertEqual(attr.Get(), "reduced")
+
+    def test_joint_model_maximal(self):
+        self.prim.ApplyAPI("NewtonArticulationRootAPI")
+        attr = self.prim.GetAttribute("newton:jointModel")
+        success = attr.Set("maximal")
+        self.assertTrue(success)
+        self.assertTrue(attr.HasAuthoredValue())
+        self.assertEqual(attr.Get(), "maximal")
+
 
 if __name__ == "__main__":
     unittest.main()

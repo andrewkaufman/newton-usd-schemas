@@ -351,6 +351,21 @@ class NewtonArticulationRootAPI "NewtonArticulationRootAPI" (
 
         When disabled, this is equivalent to applying `PhysicsFilteredPairsAPI` relationships between all bodies in the articulation."""
     )
+
+    uniform token newton:jointModel = "maximal" (
+        allowedTokens = ["maximal", "reduced"]
+        doc = """Coordinate paradigm for joints in this articulation.
+
+        "maximal": Joints constrain degrees of freedom between otherwise-free
+        bodies. Default.
+
+        "reduced": Multiple single-DOF joints connecting the same body pair
+        (stacked joints) grant degrees of freedom to bodies that would
+        otherwise be rigidly attached. Engines that do not support the stacked
+        representation may choose to merge them into a compound joint or
+        emit a warning. DOF ordering within compound joints is determined
+        by traversal order."""
+    )
 }
 
 class NewtonMassAPI "NewtonMassAPI" (
