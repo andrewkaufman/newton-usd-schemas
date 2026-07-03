@@ -1104,15 +1104,15 @@ class NewtonPIDControlAPI "NewtonPIDControlAPI" (
         }
     )
 
-    float newton:integralMax = None (
+    float newton:integralMax = inf (
         doc = """Anti-windup limit for the integral term.
 
         The accumulated integral is clamped to [-integralMax, +integralMax]
         to prevent integral windup under sustained tracking error, such as during actuator saturation.
 
-        If unset, no anti-windup clamping is applied.
+        A value of `inf` means no anti-windup clamping is applied.
 
-        Range: (0, inf)
+        Range: [0, inf)
         Units: distance * seconds or radians * seconds"""
         limits = {
             dictionary hard = {
@@ -1160,13 +1160,13 @@ class NewtonMaxEffortClampingAPI "NewtonMaxEffortClampingAPI" (
     """
 )
 {
-    float newton:maxEffort = None (
+    float newton:maxEffort = inf (
         doc = """Maximum output effort limit (in joint space).
 
         The actuator output is clamped to the range [-maxEffort, +maxEffort].
-        If unset, no effort clamping is applied.
+        A value of `inf` means no effort clamping is applied.
 
-        Range: (0, inf)
+        Range: [0, inf)
         Units: force or torque"""
         limits = {
             dictionary hard = {
@@ -1190,13 +1190,13 @@ class NewtonDCMotorClampingAPI "NewtonDCMotorClampingAPI" (
     """
 )
 {
-    float newton:maxMotorEffort = None (
+    float newton:maxMotorEffort = inf (
         doc = """Effort limit for the effort-speed curve (in joint space).
 
         Caps the velocity-dependent effort envelope.
-        If unset, no motor effort capping is applied.
+        A value of `inf` means no motor effort capping is applied.
 
-        Range: (0, inf)
+        Range: [0, inf)
         Units: force or torque"""
         limits = {
             dictionary hard = {
@@ -1205,14 +1205,14 @@ class NewtonDCMotorClampingAPI "NewtonDCMotorClampingAPI" (
         }
     )
 
-    float newton:saturationEffort = None (
+    float newton:saturationEffort = inf (
         doc = """Peak motor effort at stall (zero velocity).
 
         This is the maximum effort the motor can produce when not spinning,
         before being capped by `maxMotorEffort`.
-        If unset, the motor is not effort-limited at stall.
+        A value of `inf` means the motor is not effort-limited at stall.
 
-        Range: (0, inf)
+        Range: [0, inf)
         Units: force or torque"""
         limits = {
             dictionary hard = {
@@ -1221,12 +1221,12 @@ class NewtonDCMotorClampingAPI "NewtonDCMotorClampingAPI" (
         }
     )
 
-    float newton:velocityLimit = None (
+    float newton:velocityLimit = inf (
         doc = """Maximum no-load joint velocity for the effort-speed curve.
 
         At this velocity, the motor can produce zero effort in the direction
-        of motion due to losses such as back-EMF. If unset, the effort-speed
-        saturation effect is disabled.
+        of motion due to losses such as back-EMF. A value of `inf` disables the effort-speed
+        saturation effect.
 
         Range: (0, inf)
         Units: distance / seconds or radians / seconds"""
