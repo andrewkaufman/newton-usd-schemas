@@ -1110,8 +1110,6 @@ class NewtonPIDControlAPI "NewtonPIDControlAPI" (
         The accumulated integral is clamped to [-integralMax, +integralMax]
         to prevent integral windup under sustained tracking error, such as during actuator saturation.
 
-        A value of `inf` means no anti-windup clamping is applied.
-
         Range: [0, inf)
         Units: distance * seconds or radians * seconds"""
         limits = {
@@ -1164,7 +1162,6 @@ class NewtonMaxEffortClampingAPI "NewtonMaxEffortClampingAPI" (
         doc = """Maximum output effort limit (in joint space).
 
         The actuator output is clamped to the range [-maxEffort, +maxEffort].
-        A value of `inf` means no effort clamping is applied.
 
         Range: [0, inf)
         Units: force or torque"""
@@ -1194,7 +1191,6 @@ class NewtonDCMotorClampingAPI "NewtonDCMotorClampingAPI" (
         doc = """Effort limit for the effort-speed curve (in joint space).
 
         Caps the velocity-dependent effort envelope.
-        A value of `inf` means no motor effort capping is applied.
 
         Range: [0, inf)
         Units: force or torque"""
@@ -1210,7 +1206,6 @@ class NewtonDCMotorClampingAPI "NewtonDCMotorClampingAPI" (
 
         This is the maximum effort the motor can produce when not spinning,
         before being capped by `maxMotorEffort`.
-        A value of `inf` means the motor is not effort-limited at stall.
 
         Range: [0, inf)
         Units: force or torque"""
