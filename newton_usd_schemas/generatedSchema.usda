@@ -9,7 +9,7 @@ class NewtonSceneAPI "NewtonSceneAPI" (
     uniform int newton:maxSolverIterations = None (
         doc = """Maximum number of iterations of the physics solver.
 
-        If unset, the engine's default should be used instead.
+        If unset, each solver is free to choose an appropriate default.
 
         Range: [1, inf)
         Units: dimensionless"""
