@@ -226,10 +226,14 @@ class TestNewtonPIDControlAPI(unittest.TestCase):
         self.prim.ApplyAPI("NewtonPIDControlAPI")
         attr = self.prim.GetAttribute("newton:integralMax")
         self.assertFalse(attr.HasAuthoredValue())
-        self.assertEqual(attr.Get(), math.inf)
+        self.assertIsNone(attr.Get())
 
         attr.Set(100.0)
         self.assertAlmostEqual(attr.Get(), 100.0)
+
+        # Block resets to None
+        attr.Block()
+        self.assertIsNone(attr.Get())
 
         if USD_HAS_LIMITS:
             hard = attr.GetHardLimits()
@@ -316,11 +320,15 @@ class TestNewtonMaxEffortClampingAPI(unittest.TestCase):
         attr = self.prim.GetAttribute("newton:maxEffort")
         self.assertIsNotNone(attr)
         self.assertFalse(attr.HasAuthoredValue())
-        self.assertEqual(attr.Get(), math.inf)
+        self.assertIsNone(attr.Get())
 
         attr.Set(100.0)
         self.assertTrue(attr.HasAuthoredValue())
         self.assertAlmostEqual(attr.Get(), 100.0)
+
+        # Block resets to None
+        attr.Block()
+        self.assertIsNone(attr.Get())
 
         if USD_HAS_LIMITS:
             hard = attr.GetHardLimits()
@@ -359,10 +367,14 @@ class TestNewtonDCMotorClampingAPI(unittest.TestCase):
         self.prim.ApplyAPI("NewtonDCMotorClampingAPI")
         attr = self.prim.GetAttribute("newton:maxMotorEffort")
         self.assertFalse(attr.HasAuthoredValue())
-        self.assertEqual(attr.Get(), math.inf)
+        self.assertIsNone(attr.Get())
 
         attr.Set(100.0)
         self.assertAlmostEqual(attr.Get(), 100.0)
+
+        # Block resets to None
+        attr.Block()
+        self.assertIsNone(attr.Get())
 
         if USD_HAS_LIMITS:
             hard = attr.GetHardLimits()
@@ -374,10 +386,14 @@ class TestNewtonDCMotorClampingAPI(unittest.TestCase):
         self.prim.ApplyAPI("NewtonDCMotorClampingAPI")
         attr = self.prim.GetAttribute("newton:saturationEffort")
         self.assertFalse(attr.HasAuthoredValue())
-        self.assertEqual(attr.Get(), math.inf)
+        self.assertIsNone(attr.Get())
 
         attr.Set(10.0)
         self.assertAlmostEqual(attr.Get(), 10.0)
+
+        # Block resets to None
+        attr.Block()
+        self.assertIsNone(attr.Get())
 
         if USD_HAS_LIMITS:
             hard = attr.GetHardLimits()
@@ -389,11 +405,15 @@ class TestNewtonDCMotorClampingAPI(unittest.TestCase):
         self.prim.ApplyAPI("NewtonDCMotorClampingAPI")
         attr = self.prim.GetAttribute("newton:velocityLimit")
         self.assertFalse(attr.HasAuthoredValue())
-        self.assertEqual(attr.Get(), math.inf)
+        self.assertIsNone(attr.Get())
 
         attr.Set(30.0)
         self.assertTrue(attr.HasAuthoredValue())
         self.assertAlmostEqual(attr.Get(), 30.0)
+
+        # Block resets to None
+        attr.Block()
+        self.assertIsNone(attr.Get())
 
         if USD_HAS_LIMITS:
             hard = attr.GetHardLimits()

@@ -115,12 +115,16 @@ class TestNewtonJointAPI(unittest.TestCase):
         attr = self.revolute.GetAttribute("newton:velocityLimit")
         self.assertIsNotNone(attr)
         self.assertFalse(attr.HasAuthoredValue())
-        self.assertEqual(attr.Get(), math.inf)
+        self.assertIsNone(attr.Get())
 
         success = attr.Set(360.0)
         self.assertTrue(success)
         self.assertTrue(attr.HasAuthoredValue())
         self.assertAlmostEqual(attr.Get(), 360.0)
+
+        # Block resets to None
+        attr.Block()
+        self.assertIsNone(attr.Get())
 
         if USD_HAS_LIMITS:
             hard = attr.GetHardLimits()
