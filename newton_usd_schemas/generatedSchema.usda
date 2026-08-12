@@ -1001,8 +1001,12 @@ class NewtonMaterialAPI "NewtonMaterialAPI" (
     float newton:torsionalFriction = 0.005 (
         doc = """Torsional friction coefficient (resistance to spinning at a contact point).
 
+        Length-dimensioned rather than dimensionless: the coefficient scales a normal
+        force into a torsional one, and can be interpreted as the diameter of the
+        contact patch. It therefore scales with the stage's `metersPerUnit`.
+
         Range: [0, inf)
-        Units: dimensionless"""
+        Units: distance"""
         limits = {
             dictionary hard = {
                 float minimum = 0
@@ -1013,8 +1017,12 @@ class NewtonMaterialAPI "NewtonMaterialAPI" (
     float newton:rollingFriction = 0.0001 (
         doc = """Rolling friction coefficient (resistance to rolling motion).
 
+        Length-dimensioned, on the same basis as `newton:torsionalFriction`; it can be
+        interpreted as the depth of the local deformation over which energy is
+        dissipated, and likewise scales with the stage's `metersPerUnit`.
+
         Range: [0, inf)
-        Units: dimensionless"""
+        Units: distance"""
         limits = {
             dictionary hard = {
                 float minimum = 0
