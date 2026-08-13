@@ -69,7 +69,7 @@ class TestNewtonPointsDeformableSimAPI(unittest.TestCase):
         self.assertEqual(scene.GetAttribute("newton:maxSolverIterations").Get(), 100)
         self.assertEqual(
             scene.GetAttribute("newton:mpm:rheologySolvers").Get(),
-            Vt.TokenArray(["cg", "gauss-seidel"]),
+            Vt.TokenArray(["conjugate-gradient", "gauss-seidel"]),
         )
         self.assertAlmostEqual(scene.GetAttribute("newton:mpm:voxelSize").Get(), 0.05)
         self.assertEqual(

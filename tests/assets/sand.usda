@@ -13,7 +13,7 @@ def Xform "World"
     )
     {
         uniform int newton:maxSolverIterations = 100
-        uniform token[] newton:mpm:rheologySolvers = ["cg", "gauss-seidel"]
+        uniform token[] newton:mpm:rheologySolvers = ["conjugate-gradient", "gauss-seidel"]
         uniform float newton:mpm:voxelSize = 0.05
         vector3f physics:gravityDirection = (0, 0, -1)
         float physics:gravityMagnitude = 9.81

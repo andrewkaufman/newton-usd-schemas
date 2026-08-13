@@ -58,7 +58,7 @@ class TestNewtonMPMSceneAPI(unittest.TestCase):
         self.assertFalse(attr.HasAuthoredValue())
         self.assertEqual(attr.Get(), Vt.TokenArray(["auto"]))
 
-        solvers = Vt.TokenArray(["cg", "auto"])
+        solvers = Vt.TokenArray(["conjugate-gradient", "auto"])
         self.assertTrue(attr.Set(solvers))
         self.assertTrue(attr.HasAuthoredValue())
         self.assertEqual(attr.Get(), solvers)
@@ -70,9 +70,9 @@ class TestNewtonMPMSceneAPI(unittest.TestCase):
                 "gauss-seidel-soa",
                 "gauss-seidel-batched",
                 "jacobi",
-                "cg",
-                "cr",
-                "gmres",
+                "conjugate-gradient",
+                "conjugate-residual",
+                "generalized-minimal-residual",
             },
         )
 
