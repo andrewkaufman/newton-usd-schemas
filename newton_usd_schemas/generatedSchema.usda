@@ -362,7 +362,7 @@ class "NewtonMPMSceneAPI" (
     )
 
     uniform token[] newton:mpm:rheologySolvers = ["auto"] (
-        allowedTokens = ["auto", "gauss-seidel", "gauss-seidel-soa", "gauss-seidel-batched", "jacobi", "cg", "cr", "gmres"]
+        allowedTokens = ["auto", "gauss-seidel", "gauss-seidel-soa", "gauss-seidel-batched", "jacobi", "conjugate-gradient", "conjugate-residual", "generalized-minimal-residual"]
         doc = """Ordered rheology solver sequence.
 
         A sequence with more than one entry warm-starts solvers from left to
