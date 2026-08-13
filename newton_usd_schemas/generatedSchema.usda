@@ -1001,8 +1001,11 @@ class NewtonMaterialAPI "NewtonMaterialAPI" (
     float newton:torsionalFriction = 0.005 (
         doc = """Torsional friction coefficient (resistance to spinning at a contact point).
 
+        Scales the normal force into a torsional one, and can be interpreted as the
+        diameter of the contact patch. Higher values more strongly resist spinning.
+
         Range: [0, inf)
-        Units: dimensionless"""
+        Units: distance"""
         limits = {
             dictionary hard = {
                 float minimum = 0
@@ -1013,8 +1016,12 @@ class NewtonMaterialAPI "NewtonMaterialAPI" (
     float newton:rollingFriction = 0.0001 (
         doc = """Rolling friction coefficient (resistance to rolling motion).
 
+        Scales the normal force into a rolling one, and can be interpreted as the depth
+        of the local deformation within which energy is dissipated. Higher values more
+        strongly resist rolling.
+
         Range: [0, inf)
-        Units: dimensionless"""
+        Units: distance"""
         limits = {
             dictionary hard = {
                 float minimum = 0
