@@ -11,6 +11,7 @@ import newton_usd_schemas  # noqa: F401
 from newton_usd_schemas.validators._collision import check_sdf_max_resolution
 from newton_usd_schemas.validators._joints import check_mimic_joint
 from newton_usd_schemas.validators._limits import check_attribute_hard_limits
+from newton_usd_schemas.validators._migration import check_renamed_attributes
 from newton_usd_schemas.validators._registration import PrimCheck, TimeRange
 from newton_usd_schemas.validators._requirements import ExampleResult, Features, Requirement, Requirements
 
@@ -46,6 +47,9 @@ class TestSpecExamples(unittest.TestCase):
     def test_attribute_hard_limits(self):
         self.assert_examples_match(Requirements.LIMITS_001, check_attribute_hard_limits)
 
+    def test_renamed_attributes(self):
+        self.assert_examples_match(Requirements.MIGRATION_001, check_renamed_attributes)
+
 
 class TestFeaturePages(unittest.TestCase):
     """Check that the requirements table on each feature page matches the `features-table` the build reads."""
@@ -53,7 +57,7 @@ class TestFeaturePages(unittest.TestCase):
     def test_newton_simulation(self):
         page = (SPECS / "features" / "newton_simulation.md").read_text()
         table = re.findall(r"^\| \[`([^`]+)`\]", page, re.MULTILINE)
-        self.assertEqual(table, [requirement.code for requirement in Features.NEWTON_SIMULATION_V1_0_0.requirements])
+        self.assertEqual(table, [requirement.code for requirement in Features.NEWTON_SIMULATION.requirements])
 
 
 if __name__ == "__main__":

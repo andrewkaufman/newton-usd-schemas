@@ -32,6 +32,7 @@ from usd_validation_nvidia import (
 from ._collision import SDF_MAX_RESOLUTION_VALIDATOR, check_sdf_max_resolution, round_sdf_max_resolution
 from ._joints import MIMIC_JOINT_VALIDATOR, check_mimic_joint
 from ._limits import ATTRIBUTE_HARD_LIMITS_VALIDATOR, check_attribute_hard_limits
+from ._migration import RENAMED_ATTRIBUTES_VALIDATOR, check_renamed_attributes, rename_attribute, renamed_to
 from ._registration import TimeRange
 from ._requirements import Capabilities, Features, Profiles, Requirement, Requirements
 
@@ -39,6 +40,7 @@ __all__ = [
     "AttributeHardLimitsChecker",
     "MimicJointChecker",
     "Plugin",
+    "RenamedAttributesChecker",
     "SdfMaxResolutionChecker",
 ]
 
@@ -96,6 +98,25 @@ class AttributeHardLimitsChecker(_NewtonRule):
         return ATTRIBUTE_HARD_LIMITS_VALIDATOR
 
 
+class RenamedAttributesChecker(_NewtonRule):
+    """Attributes that a breaking change to a Newton schema renamed must be authored with their new names."""
+
+    check = staticmethod(check_renamed_attributes)
+
+    @classmethod
+    def validator_name(cls) -> str:
+        return RENAMED_ATTRIBUTES_VALIDATOR
+
+    @staticmethod
+    def rename(stage: Usd.Stage, attr: Usd.Attribute) -> None:
+        rename_attribute(attr, renamed_to(attr.GetPrim(), attr.GetName()), stage.GetEditTarget())
+
+    def GetIssues(self):  # noqa: N802
+        # UsdValidatorAdapter does not convert UsdValidation fixers into suggestions
+        suggestion = Suggestion(callable=self.rename, message="Move the values to the attribute's new name.")
+        return [issue if issue.suggestions else replace(issue, suggestion=suggestion) for issue in super().GetIssues()]
+
+
 class Plugin:
     """Registers the Newton rules, requirements, capabilities, features, and profiles with `usd-validation-nvidia`."""
 
@@ -103,6 +124,7 @@ class Plugin:
         ("NewtonCollision", SdfMaxResolutionChecker, Requirements.SDF_001),
         ("NewtonJoints", MimicJointChecker, Requirements.MIMIC_001),
         ("Basic", AttributeHardLimitsChecker, Requirements.LIMITS_001),
+        ("NewtonMigration", RenamedAttributesChecker, Requirements.MIGRATION_001),
     )
 
     def on_startup(self) -> None:

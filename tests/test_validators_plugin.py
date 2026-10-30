@@ -95,13 +95,28 @@ class TestValidatorMetadata(ValidatorTestCase):
         self.assertEqual(list(metadata.GetSchemaTypes()), [])
         self.assertTrue(metadata.isTimeDependent)
 
+    def test_renamed_attributes(self):
+        metadata = self.metadata(validators.RENAMED_ATTRIBUTES_VALIDATOR)
+        self.assertEqual(metadata.name, "newton_usd_schemas.validators:RenamedAttributesValidator")
+        self.assertTrue(metadata.doc)
+        self.assertEqual(sorted(metadata.GetKeywords()), ["NewtonMigration", "NewtonPointsDeformableSimAPI", "NewtonValidators"])
+        self.assertEqual(list(metadata.GetSchemaTypes()), ["NewtonPhysicsPointsDeformableSimAPI"])
+        self.assertFalse(metadata.isTimeDependent)
+
 
 class TestValidatorKeywords(ValidatorTestCase):
     def names(self, keyword: str) -> list[str]:
         return sorted(metadata.name for metadata in UsdValidation.ValidationRegistry().GetValidatorMetadataForKeyword(keyword))
 
     def test_newton_validators(self):
-        expected = sorted([validators.ATTRIBUTE_HARD_LIMITS_VALIDATOR, validators.MIMIC_JOINT_VALIDATOR, validators.SDF_MAX_RESOLUTION_VALIDATOR])
+        expected = sorted(
+            [
+                validators.ATTRIBUTE_HARD_LIMITS_VALIDATOR,
+                validators.MIMIC_JOINT_VALIDATOR,
+                validators.RENAMED_ATTRIBUTES_VALIDATOR,
+                validators.SDF_MAX_RESOLUTION_VALIDATOR,
+            ]
+        )
         self.assertEqual(self.names("NewtonValidators"), expected)
 
     def test_newton_collision(self):
@@ -118,6 +133,12 @@ class TestValidatorKeywords(ValidatorTestCase):
 
     def test_newton_mimic_api(self):
         self.assertEqual(self.names("NewtonMimicAPI"), [validators.MIMIC_JOINT_VALIDATOR])
+
+    def test_newton_migration(self):
+        self.assertEqual(self.names("NewtonMigration"), [validators.RENAMED_ATTRIBUTES_VALIDATOR])
+
+    def test_newton_points_deformable_sim_api(self):
+        self.assertEqual(self.names("NewtonPointsDeformableSimAPI"), [validators.RENAMED_ATTRIBUTES_VALIDATOR])
 
 
 if __name__ == "__main__":
