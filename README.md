@@ -17,7 +17,7 @@ To start using the schemas, install the python wheel into a virtual environment 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install newton-usd-schemas[usd]  # or [usdex], or install any other USD runtime separately
+pip install 'newton-usd-schemas[usd]'  # or [usdex], or install any other USD runtime separately
 ```
 
 At runtime, simply import the module to register the schemas with OpenUSD.

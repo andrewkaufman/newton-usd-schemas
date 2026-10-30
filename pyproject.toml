@@ -19,7 +19,7 @@ usd = [
     "usd-core>=25.5 ; python_version < '3.14'",
     "usd-core>=26.11 ; python_version >= '3.14'",
 ]
-usdex = ["usd-exchange>=3.0.1 ; python_version < '3.14'"]
+usdex = ["usd-exchange>=3.0.1"]
 
 [dependency-groups]
 dev = [

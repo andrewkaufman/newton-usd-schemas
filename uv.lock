@@ -324,7 +324,7 @@ usd = [
     { name = "usd-core", version = "26.11", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
 ]
 usdex = [
-    { name = "usd-exchange", marker = "python_full_version < '3.14'" },
+    { name = "usd-exchange" },
 ]
 
 [package.dev-dependencies]
@@ -343,7 +343,7 @@ dev = [
 requires-dist = [
     { name = "usd-core", marker = "python_full_version >= '3.14' and extra == 'usd'", specifier = ">=26.11" },
     { name = "usd-core", marker = "python_full_version < '3.14' and extra == 'usd'", specifier = ">=25.5" },
-    { name = "usd-exchange", marker = "python_full_version < '3.14' and extra == 'usdex'", specifier = ">=3.0.1" },
+    { name = "usd-exchange", marker = "extra == 'usdex'", specifier = ">=3.0.1" },
 ]
 provides-extras = ["usd", "usdex"]
 
