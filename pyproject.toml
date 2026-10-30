@@ -14,6 +14,13 @@ Homepage = "https://github.com/newton-physics/newton-usd-schemas"
 Repository = "https://github.com/newton-physics/newton-usd-schemas"
 Changelog = "https://github.com/newton-physics/newton-usd-schemas/blob/main/CHANGELOG.md"
 
+[project.optional-dependencies]
+usd = [
+    "usd-core>=25.5 ; python_version < '3.14'",
+    "usd-core>=26.11 ; python_version >= '3.14'",
+]
+usdex = ["usd-exchange>=3.0.1"]
+
 [dependency-groups]
 dev = [
     "poethepoet>=0.34",
@@ -21,9 +28,8 @@ dev = [
     "black>=25.1",
     "coverage>=7.4",
     "unittest-xml-reporting>=3.2.0",
-    "usd-core>=25.11 ; platform_machine != 'aarch64' and python_version < '3.14'",
-    "usd-core>=26.11 ; python_version >= '3.14'",
-    "usd-exchange>=2.2 ; platform_machine == 'aarch64' and python_version < '3.14'",
+    "newton-usd-schemas[usd] ; platform_machine != 'aarch64' or python_version >= '3.14'",
+    "newton-usd-schemas[usdex] ; platform_machine == 'aarch64' and python_version < '3.14'",
 ]
 
 [build-system]

@@ -1,3 +1,10 @@
+# Unreleased
+
+## Features
+
+- Added the `usd` and `usdex` extras, which install `usd-core` or `usd-exchange` respectively as the OpenUSD runtime
+  - The extras are optional, and should not be combined. Any other OpenUSD runtime can still be installed separately.
+
 # 0.6.0
 
 ## Features
