@@ -86,7 +86,7 @@ uv run --group dev poe lint
 uv run --group dev poe test
 ```
 
-The `dev` group includes an OpenUSD runtime, through the extras defined in `pyproject.toml`.
+The `dev` group includes an OpenUSD runtime and `usd-validation-nvidia`, through the extras defined in `pyproject.toml`.
 
 ### Development Requirements
 
