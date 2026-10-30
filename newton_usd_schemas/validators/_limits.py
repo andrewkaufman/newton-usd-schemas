@@ -10,7 +10,7 @@ from ._registration import SUPPORTS_PYTHON_VALIDATORS, Finding, TimeRange, UsdVa
 ATTRIBUTE_HARD_LIMITS_VALIDATOR = validator_name("AttributeHardLimitsValidator")
 
 # OpenUSD's own hard limits validator, proposed in PixarAnimationStudios/OpenUSD#4317. Once the minimum supported OpenUSD
-# release includes it, deprecate this validator, and later remove it along with its plugInfo.json entry.
+# release includes it, deprecate this validator, and later remove it along with its plugInfo.json entry and requirement page.
 OPENUSD_HARD_LIMITS_VALIDATOR = "usdValidation:AttributeHardLimits"
 
 

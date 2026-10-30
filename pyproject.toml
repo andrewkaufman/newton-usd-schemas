@@ -39,9 +39,16 @@ build-backend = "hatchling.build"
 [tool.hatch.version]
 path = "newton_usd_schemas/_version.py"
 
+[tool.hatch.build.targets.wheel]
+artifacts = ["newton_usd_schemas/validators/_requirements"]
+
+[tool.hatch.build.targets.wheel.hooks.custom]
+dependencies = ["usd-profiles-nvidia>=1.23"]
+
 [tool.uv]
 package = true
 python-preference = "only-managed"
+cache-keys = [{ file = "pyproject.toml" }, { file = "hatch_build.py" }, { file = "docs/specs/**/*.md" }]
 
 # Dev Tools
 
@@ -76,7 +83,7 @@ cmd  = "uv lock --check"
 
 [tool.poe.tasks.lint-license]
 help = "Run license conformance checks on code base"
-cmd  = "python tools/license_format.py --check"
+cmd  = "python tools/license_format.py --check --exclude .venv --exclude newton_usd_schemas/validators/_requirements"
 
 [tool.poe.tasks.lint-ruff]
 help = "Run ruff check on code base"
@@ -93,7 +100,7 @@ ignore_fail = "return_non_zero"
 
 [tool.poe.tasks.format-license]
 help = "Run license conformance checks on code base"
-cmd  = "python tools/license_format.py --fix"
+cmd  = "python tools/license_format.py --fix --exclude .venv --exclude newton_usd_schemas/validators/_requirements"
 
 [tool.poe.tasks.format-ruff]
 help = "Run ruff fixer on code base"
@@ -105,6 +112,7 @@ cmd  = "black ."
 
 [tool.coverage.run]
 source = ["newton_usd_schemas"]
+omit = ["newton_usd_schemas/validators/_requirements/*"]
 
 [tool.coverage.report]
 exclude_lines = [
@@ -158,5 +166,5 @@ docstring-code-format = true
 
 [tool.black]
 line-length = 150
-exclude = "(.venv|dist)"
+exclude = "(.venv|dist|newton_usd_schemas/validators/_requirements)"
 target-version = ['py310']
